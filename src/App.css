@@ -19,10 +19,14 @@
     align-items: center;
 }
 
-.container input {
-    height: 20px;
+.container > span {
+    font-size: 1.5em;
+}
+
+.input {
     outline: none;
-    border: 2px solid #0034fd
+    border: 2px solid #0034fd;
+    border-radius: 3px;
 }
 
 .button-container {
@@ -61,8 +65,10 @@
     color: red;
 }
 
-.error#input {
+.error-input {
     border-color: red;
     background-color: rgba(255,116,97,0.47);
     color: red;
+    outline: none;
+    border-radius: 3px;
 }

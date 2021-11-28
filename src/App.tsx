@@ -16,8 +16,8 @@ function App() {
     const [count, setCount] = useState<number>(0)
     const [countMsg, setCountMsg] = useState<string>('')
     const [error, setError] = useState<boolean>(false)
-    const [max, setMax] = useState<number>(0)
-    const [start, setStart] = useState<number>(0)
+    const [max, setMax] = useState<number>(values.max)
+    const [start, setStart] = useState<number>(values.start)
 
     useEffect(() => {
         let state = restoreState<ValuesType>('values', values)
@@ -28,7 +28,7 @@ function App() {
             setStart(state.start)
             setCount(state.start)
         } else {
-            setError(true)
+            // setError(true)
             setCountMsg('enter values and press "set"')
         }
     }, [])
@@ -40,10 +40,10 @@ function App() {
         setCountMsg('enter values and press "set"')
         if (value < 0) {
             setError(true)
-            setCountMsg('value incorrect')
+            setCountMsg('incorrect value')
         } else if (value <= start) {
             setError(true)
-            setCountMsg('value incorrect')
+            setCountMsg('incorrect value')
         } else setError(false)
     }
 
@@ -54,10 +54,10 @@ function App() {
         setCountMsg('enter values and press "set"')
         if (value < 0) {
             setError(true)
-            setCountMsg('value incorrect')
+            setCountMsg('incorrect value')
         } else if (value >= max) {
             setError(true)
-            setCountMsg('value incorrect')
+            setCountMsg('incorrect value')
         } else setError(false)
     }
 
@@ -75,16 +75,17 @@ function App() {
     }
 
     const output = restoreState<ValuesType>('values', values) ? (error ? countMsg : count) : countMsg
-
     const errorClassName = error ? 'error' : ''
+    const inputErrorClassName = error ? 'error-input' : max === start ? 'error-input' : 'input'
+
     return (
         <div className={'head-container'}>
             <div className={'container'}>
-                <label>Set max: <input className={errorClassName} onChange={onMaxInputChange} value={max} type='number'/></label>
-                <label>Set min: <input className={errorClassName} onChange={onStartInputChange} value={start} type='number'/></label>
+                <label>Set max: <input className={inputErrorClassName} onChange={onMaxInputChange} value={max} type='number'/></label>
+                <label>Set min: <input className={inputErrorClassName} onChange={onStartInputChange} value={start} type='number'/></label>
                 <div className={'button-container'}>
                     <button
-                        disabled={error}
+                        disabled={error ? true : max === start}
                         className={'button'}
                         onClick={setCurrentStorage}>set
                     </button>
