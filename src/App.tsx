@@ -1,80 +1,87 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState,Dispatch} from 'react';
 import './App.css';
 import {restoreState, saveState} from './LocalStorageFunctions/storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {initState} from './redux/selectors';
+import {CommonActionType, setCount, setCountMessage, setError, setValues, ValuesType} from './redux/store-reducer';
 
-export type ValuesType = {
-    [key: string]: number
-}
+// export type ValuesType = {
+//     [key: string]: number
+// }
 
 function App() {
-    const initialState: ValuesType = {
-        max: 0,
-        start: 0
-    }
 
-    const [values, setValues] = useState<ValuesType>(initialState)
-    const [count, setCount] = useState<number>(0)
-    const [countMsg, setCountMsg] = useState<string>('')
-    const [error, setError] = useState<boolean>(false)
+    const dispatch = useDispatch<Dispatch<CommonActionType>>()
+
+    const {
+        values,
+        count,
+        countMessage,
+        error,
+    } = useSelector(initState)
+
+    // const [values, setValues] = useState<ValuesType>(initialState)
+    // const [count, setCount] = useState<number>(0)
+    // const [countMsg, setCountMsg] = useState<string>('')
+    // const [error, setError] = useState<boolean>(false)
     const [max, setMax] = useState<number>(values.max)
     const [start, setStart] = useState<number>(values.start)
 
     useEffect(() => {
         let state = restoreState<ValuesType>('values', values)
         if (state) {
-            setError(false)
-            setValues(state)
+            dispatch(setError(false))
+            dispatch(setValues(state))
             setMax(state.max)
             setStart(state.start)
-            setCount(state.start)
+            dispatch(setCount(state.start))
         } else {
-            // setError(true)
-            setCountMsg('enter values and press "set"')
+            dispatch(setCountMessage('enter values and press "set"'))
         }
     }, [])
 
     const onMaxInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        restoreState<ValuesType>('values', values) ? setError(false) : setError(true)
         let value = parseInt(e.currentTarget.value)
         setMax(value)
-        setCountMsg('enter values and press "set"')
+        dispatch(setCountMessage('enter values and press "set"'))
         if (value < 0) {
-            setError(true)
-            setCountMsg('incorrect value')
+            dispatch(setError(true))
+            dispatch(setCountMessage('incorrect value'))
         } else if (value <= start) {
-            setError(true)
-            setCountMsg('incorrect value')
-        } else setError(false)
+            dispatch(setError(true))
+            dispatch(setCountMessage('incorrect value'))
+        } else dispatch(setError(false))
     }
 
     const onStartInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        restoreState<ValuesType>('values', values) ?  setError(true) : setError(false)
         let value = parseInt(e.currentTarget.value)
         setStart(value)
-        setCountMsg('enter values and press "set"')
+        dispatch(setCountMessage('enter values and press "set"'))
         if (value < 0) {
-            setError(true)
-            setCountMsg('incorrect value')
+            dispatch(setError(true))
+            dispatch(setCountMessage('incorrect value'))
         } else if (value >= max) {
-            setError(true)
-            setCountMsg('incorrect value')
-        } else setError(false)
+            dispatch(setError(true))
+            dispatch(setCountMessage('incorrect value'))
+        } else dispatch(setError(false))
     }
 
     const setCurrentStorage = () => {
-        let newValues = {...values, max: max, start: start}
-        setValues(newValues)
-        setCount(newValues.start)
+        let newValues = {max: max, start: start}
+        dispatch(setCount(newValues.start))
+        dispatch(setValues(newValues))
         saveState<ValuesType>('values', newValues)
     }
 
-    const setCurrentCount = () => setCount(count + 1)
+    const setCurrentCount = () => {
+        dispatch(setCount(count + 1))
+    }
     const resetCurrentCount = () => {
         let state = restoreState<ValuesType>('values', values)
-        if (state) setCount(state.start)
+        if (state) dispatch(setCount(state.start))
     }
 
-    const output = restoreState<ValuesType>('values', values) ? (error ? countMsg : count) : countMsg
+    const output = restoreState<ValuesType>('values', values) ? (error ? countMessage : count) : countMessage
     const errorClassName = error ? 'error' : ''
     const inputErrorClassName = error ? 'error-input' : max === start ? 'error-input' : 'input'
 
