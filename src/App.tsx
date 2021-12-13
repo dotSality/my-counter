@@ -20,10 +20,6 @@ function App() {
         error,
     } = useSelector(initState)
 
-    // const [values, setValues] = useState<ValuesType>(initialState)
-    // const [count, setCount] = useState<number>(0)
-    // const [countMsg, setCountMsg] = useState<string>('')
-    // const [error, setError] = useState<boolean>(false)
     const [max, setMax] = useState<number>(values.max)
     const [start, setStart] = useState<number>(values.start)
 
@@ -46,10 +42,10 @@ function App() {
         dispatch(setCountMessage('enter values and press "set"'))
         if (value < 0) {
             dispatch(setError(true))
-            dispatch(setCountMessage('incorrect value'))
+            dispatch(setCountMessage('incorrect values'))
         } else if (value <= start) {
             dispatch(setError(true))
-            dispatch(setCountMessage('incorrect value'))
+            dispatch(setCountMessage('incorrect values'))
         } else dispatch(setError(false))
     }
 
@@ -59,10 +55,10 @@ function App() {
         dispatch(setCountMessage('enter values and press "set"'))
         if (value < 0) {
             dispatch(setError(true))
-            dispatch(setCountMessage('incorrect value'))
+            dispatch(setCountMessage('incorrect values'))
         } else if (value >= max) {
             dispatch(setError(true))
-            dispatch(setCountMessage('incorrect value'))
+            dispatch(setCountMessage('incorrect values'))
         } else dispatch(setError(false))
     }
 
@@ -100,6 +96,8 @@ function App() {
             </div>
             <div className={'container'}>
                 <span className={errorClassName}>{output}</span>
+                <span>Current setup: <br/>
+                    max - {values.max}, start - {values.start}</span>
                 <div className={'button-container'}>
                     <button
                         disabled={count === values.max ? true : error}
