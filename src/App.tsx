@@ -3,7 +3,7 @@ import './App.css';
 import {restoreState, saveState} from './LocalStorageFunctions/storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {initState} from './redux/selectors';
-import {CommonActionType, setCount, setCountMessage, setError, setValues, ValuesType} from './redux/store-reducer';
+import {CommonActionType, setCount, setCountMessage, setError, setMax, setStart, setValues, ValuesType} from './redux/store-reducer';
 
 // export type ValuesType = {
 //     [key: string]: number
@@ -15,21 +15,20 @@ function App() {
 
     const {
         values,
+        max,
+        start,
         count,
         countMessage,
         error,
     } = useSelector(initState)
-
-    const [max, setMax] = useState<number>(values.max)
-    const [start, setStart] = useState<number>(values.start)
 
     useEffect(() => {
         let state = restoreState<ValuesType>('values', values)
         if (state) {
             dispatch(setError(false))
             dispatch(setValues(state))
-            setMax(state.max)
-            setStart(state.start)
+            dispatch(setMax(state.max))
+            dispatch(setStart(state.start))
             dispatch(setCount(state.start))
         } else {
             dispatch(setCountMessage('enter values and press "set"'))
@@ -38,12 +37,9 @@ function App() {
 
     const onMaxInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         let value = parseInt(e.currentTarget.value)
-        setMax(value)
+        dispatch(setMax(value))
         dispatch(setCountMessage('enter values and press "set"'))
-        if (value < 0) {
-            dispatch(setError(true))
-            dispatch(setCountMessage('incorrect values'))
-        } else if (value <= start) {
+        if (value < 0 || value <= start) {
             dispatch(setError(true))
             dispatch(setCountMessage('incorrect values'))
         } else dispatch(setError(false))
@@ -53,10 +49,7 @@ function App() {
         let value = parseInt(e.currentTarget.value)
         setStart(value)
         dispatch(setCountMessage('enter values and press "set"'))
-        if (value < 0) {
-            dispatch(setError(true))
-            dispatch(setCountMessage('incorrect values'))
-        } else if (value >= max) {
+        if (value < 0 || value >= max) {
             dispatch(setError(true))
             dispatch(setCountMessage('incorrect values'))
         } else dispatch(setError(false))
