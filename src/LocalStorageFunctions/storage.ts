@@ -4,7 +4,7 @@ export function saveState<T> (key: string, state: T) {
 
 export function restoreState<T>(key: string, defaultState: T) {
     let state = defaultState
-    const stateAsString = localStorage.getItem('values')
+    const stateAsString = localStorage.getItem(key)
     if (stateAsString) {
         state = JSON.parse(stateAsString)
         return state

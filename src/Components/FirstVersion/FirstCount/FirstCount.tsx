@@ -1,12 +1,12 @@
-import s from './../../common/Common.module.css'
-import {ButtonsContainer} from '../ButtonsContainer/ButtonsContainer';
+import s from '../First.module.css'
+import {FirstButtons} from '../FirstButtons/FirstButtons';
 import React from 'react';
-import {restoreState} from '../../LocalStorageFunctions/storage';
-import {ValuesType} from '../../redux/store-reducer';
+import {restoreState} from '../../../LocalStorageFunctions/storage';
+import {ValuesType} from '../../../redux/store-reducer';
 import {useSelector} from 'react-redux';
-import {initState} from '../../redux/selectors';
+import {initState} from '../../../redux/selectors';
 
-export const CountContainer = () => {
+export const FirstCount = () => {
 
     const {
         max,
@@ -24,7 +24,7 @@ export const CountContainer = () => {
             <span className={errorClassName}>{output}</span>
             <span>Current setup: <br/>
                     max - {values.max}, start - {values.start}</span>
-            <ButtonsContainer/>
+            <FirstButtons/>
         </div>
     )
 }

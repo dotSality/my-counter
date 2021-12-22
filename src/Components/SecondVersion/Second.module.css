@@ -1,0 +1,82 @@
+.secondWindow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.container {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #0034fd;
+    border-radius: 4%;
+    height: 50%;
+    width: 280px;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+}
+
+.count {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.count > span {
+    font-size: 1.5em;
+}
+
+.input {
+    outline: none;
+    border: 2px solid #0034fd;
+    border-radius: 3px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.button {
+    font-size: 1.5em;
+    min-width: 60px;
+    height: 50px;
+    width: fit-content;
+    background-color:  #1ea7fd;
+    color: #FFFFFF;
+    border-radius: 10px;
+    border: 2px solid  #0034fd;
+    user-select: none;
+}
+
+.button:hover {
+    background-color: #53C7FD;
+}
+
+.button:disabled {
+    background-color: #89d9fd;
+    border: 2px solid #1ea7fd
+}
+
+.button:active {
+    background-color: #FFFFFF;
+    color: #1ea7fd;
+}
+
+.error {
+    color: red;
+}
+
+.errorInput {
+    border-color: red;
+    background-color: rgba(255,116,97,0.47);
+    color: red;
+    outline: none;
+    border-radius: 3px;
+}

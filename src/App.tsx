@@ -1,33 +1,21 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import {Route, Routes} from 'react-router-dom';
 import './App.css';
-import {restoreState} from './LocalStorageFunctions/storage';
-import {useDispatch, useSelector} from 'react-redux';
-import {initState} from './redux/selectors';
-import {CommonActionType, setErrorState, setInitialState, ValuesType} from './redux/store-reducer';
-import {Dispatch} from 'redux';
-import {Settings} from './Components/Settings/Settings';
-import {CountContainer} from './Components/CountContainer/CountContainer';
+import {FirstVersion} from './Components/FirstVersion/FirstVersion';
+import { SecondVersion } from './Components/SecondVersion/SecondVersion';
+import { Navigation } from './Components/Navigation/Navigation';
 
 function App() {
 
-    const dispatch = useDispatch<Dispatch<CommonActionType>>()
-
-    const values = useSelector(initState).values
-
-    useEffect(() => {
-        let state = restoreState<ValuesType>('values', values)
-        if (state) {
-            dispatch(setErrorState(false, 'enter values and press "set"'))
-            dispatch(setInitialState(state, state.max, state.start, state.start))
-        } else dispatch(setErrorState(true, 'enter values and press "set"'))
-    }, [])
-
     return (
         <div className={'head-container'}>
-            <Settings/>
-            <CountContainer/>
+            <Navigation/>
+            <Routes>
+                <Route path={'/first-ver/'} element={<FirstVersion/>}/>
+                <Route path={'/second-ver/'} element={<SecondVersion/>}/>
+            </Routes>
         </div>
-    );
+    )
 }
 
 export default App;

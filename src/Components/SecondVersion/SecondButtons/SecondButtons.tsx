@@ -1,12 +1,17 @@
-import s from './../../common/Common.module.css'
-import React from 'react';
+import s from './../Second.module.css'
+import {CommonActionType, setCount, ValuesType} from '../../../redux/store-reducer';
+import {restoreState} from '../../../LocalStorageFunctions/storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch} from 'redux';
-import {CommonActionType, setCount, ValuesType} from '../../redux/store-reducer';
-import {initState} from '../../redux/selectors';
-import {restoreState} from '../../LocalStorageFunctions/storage';
+import {initState} from '../../../redux/selectors';
+import React from 'react';
 
-export const ButtonsContainer = () => {
+type ButtonContainerPropsType = {
+    settings: boolean
+    toggleSettings: () => void
+}
+
+export const SecondButtons = (props: ButtonContainerPropsType) => {
 
     const dispatch = useDispatch<Dispatch<CommonActionType>>()
 
@@ -19,7 +24,7 @@ export const ButtonsContainer = () => {
     const setCurrentCount = () => dispatch(setCount(count + 1))
 
     const resetCurrentCount = () => {
-        let state = restoreState<ValuesType>('values', values)
+        let state = restoreState<ValuesType>('first-values', values)
         if (state) dispatch(setCount(state.start))
     }
 
@@ -28,13 +33,17 @@ export const ButtonsContainer = () => {
             <button
                 disabled={count === values.max ? true : error}
                 className={s.button}
-                onClick={setCurrentCount}>count
+                onClick={setCurrentCount}>Count
             </button>
             <button
                 disabled={count === values.start ? true : error}
                 className={s.button}
-                onClick={resetCurrentCount}>reset
+                onClick={resetCurrentCount}>Reset
             </button>
+            <button
+                className={s.button}
+                onClick={props.toggleSettings}>
+                {props.settings ? 'Count' : 'Settings'}</button>
         </div>
     )
 }
