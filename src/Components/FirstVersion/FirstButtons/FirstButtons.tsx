@@ -2,8 +2,8 @@ import s from '../First.module.css'
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch} from 'redux';
-import {CommonActionType, setCount, ValuesType} from '../../../redux/store-reducer';
-import {initState} from '../../../redux/selectors';
+import {CommonActionType, setCount, ValuesType} from '../../../redux/first-reducer';
+import {initStateFirst} from '../../../redux/selectors';
 import {restoreState} from '../../../LocalStorageFunctions/storage';
 
 export const FirstButtons = () => {
@@ -14,7 +14,7 @@ export const FirstButtons = () => {
         values,
         count,
         error,
-    } = useSelector(initState)
+    } = useSelector(initStateFirst)
 
     const setCurrentCount = () => dispatch(setCount(count + 1))
 

@@ -1,9 +1,9 @@
 import s from '../First.module.css'
 import React, {ChangeEvent} from 'react';
-import {CommonActionType, setCount, setErrorState, setMax, setStart, setValues, ValuesType} from '../../../redux/store-reducer';
+import {CommonActionType, setCount, setErrorState, setMax, setStart, setValues, ValuesType} from '../../../redux/first-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch} from 'redux';
-import {initState} from '../../../redux/selectors';
+import {initStateFirst} from '../../../redux/selectors';
 import {saveState} from '../../../LocalStorageFunctions/storage';
 
 export const FirstSettings = () => {
@@ -13,7 +13,7 @@ export const FirstSettings = () => {
         max,
         start,
         error,
-    } = useSelector(initState)
+    } = useSelector(initStateFirst)
 
     const onMaxInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         let value = parseInt(e.currentTarget.value)

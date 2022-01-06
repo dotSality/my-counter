@@ -1,10 +1,10 @@
 export enum ACTION_TYPES {
-    SET_VALUES_AT = 'SET-VALUES-AT',
-    SET_ERROR_AT = 'SET-ERROR-AT',
-    SET_COUNT_AT = 'SET-COUNT-AT',
-    SET_MAX = 'SET-MAX',
-    SET_START = 'SET-START',
-    SET_INITIAL_STATE = 'SET-INITIAL-STATE'
+    SET_VALUES_AT = 'second/SET-VALUES-AT',
+    SET_ERROR_AT = 'second/SET-ERROR-AT',
+    SET_COUNT_AT = 'second/SET-COUNT-AT',
+    SET_MAX = 'second/SET-MAX',
+    SET_START = 'second/SET-START',
+    SET_INITIAL_STATE = 'second/SET-INITIAL-STATE'
 }
 
 export type ValuesType = {
@@ -26,7 +26,7 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
-export const stateReducer = (state = initialState, action: CommonActionType): InitialStateType => {
+export const secondReducer = (state = initialState, action: CommonActionType): InitialStateType => {
     switch (action.type) {
         case ACTION_TYPES.SET_VALUES_AT:
         case ACTION_TYPES.SET_ERROR_AT:
@@ -52,4 +52,5 @@ export const setCount = (count: number) => ({type: ACTION_TYPES.SET_COUNT_AT, pa
 export const setValues = (values: ValuesType) => ({type: ACTION_TYPES.SET_VALUES_AT, payload: {values}} as const)
 export const setMax = (max: number) => ({type: ACTION_TYPES.SET_MAX, payload: {max}} as const)
 export const setStart = (start: number) => ({type: ACTION_TYPES.SET_START, payload: {start}} as const)
-export const setInitialState = (values: ValuesType, max: number, start: number, count: number) => ({type: ACTION_TYPES.SET_INITIAL_STATE, payload: {values, max, start, count}} as const)
+export const setInitialState = (values: ValuesType, max: number, start: number, count: number) =>
+    ({type: ACTION_TYPES.SET_INITIAL_STATE, payload: {values, max, start, count}} as const)

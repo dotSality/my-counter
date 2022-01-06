@@ -1,9 +1,9 @@
 import s from './../Second.module.css'
-import {CommonActionType, setCount, ValuesType} from '../../../redux/store-reducer';
+import {CommonActionType, setCount, ValuesType} from '../../../redux/second-reducer';
 import {restoreState} from '../../../LocalStorageFunctions/storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch} from 'redux';
-import {initState} from '../../../redux/selectors';
+import {initStateSecond} from '../../../redux/selectors';
 import React from 'react';
 
 type ButtonContainerPropsType = {
@@ -19,12 +19,12 @@ export const SecondButtons = (props: ButtonContainerPropsType) => {
         values,
         count,
         error,
-    } = useSelector(initState)
+    } = useSelector(initStateSecond)
 
     const setCurrentCount = () => dispatch(setCount(count + 1))
 
     const resetCurrentCount = () => {
-        let state = restoreState<ValuesType>('first-values', values)
+        let state = restoreState<ValuesType>('second-values', values)
         if (state) dispatch(setCount(state.start))
     }
 
@@ -43,7 +43,7 @@ export const SecondButtons = (props: ButtonContainerPropsType) => {
             <button
                 className={s.button}
                 onClick={props.toggleSettings}>
-                {props.settings ? 'Count' : 'Settings'}</button>
+                {props.settings ? 'Counter' : 'Settings'}</button>
         </div>
     )
 }

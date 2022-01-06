@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch} from 'redux';
-import {CommonActionType, setErrorState, setInitialState, ValuesType} from '../../redux/store-reducer';
+import {CommonActionType, setErrorState, setInitialState, ValuesType} from '../../redux/first-reducer';
 import s from './First.module.css'
-import {initState} from '../../redux/selectors';
+import {initStateFirst} from '../../redux/selectors';
 import React, {useEffect} from 'react';
 import {restoreState} from '../../LocalStorageFunctions/storage';
 import {FirstSettings} from './FirstSettings/FirstSettings';
@@ -11,7 +11,7 @@ import {FirstCount} from './FirstCount/FirstCount';
 export const FirstVersion = () => {
     const dispatch = useDispatch<Dispatch<CommonActionType>>()
 
-    const values = useSelector(initState).values
+    const {values} = useSelector(initStateFirst)
 
     useEffect(() => {
         let state = restoreState<ValuesType>('first-values', values)

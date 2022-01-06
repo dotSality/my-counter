@@ -1,10 +1,11 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch} from 'redux';
-import {CommonActionType, setCount, setErrorState, setMax, setStart, setValues, ValuesType} from '../../../redux/store-reducer';
-import {initState} from '../../../redux/selectors';
+import {CommonActionType, setCount, setErrorState, setMax, setStart, setValues, ValuesType} from '../../../redux/second-reducer';
+import {initStateSecond} from '../../../redux/selectors';
 import React, {ChangeEvent} from 'react';
 import {saveState} from '../../../LocalStorageFunctions/storage';
 import s from './../Second.module.css';
+import {store} from '../../../redux/store';
 
 export const SecondSettings = () => {
 
@@ -13,15 +14,14 @@ export const SecondSettings = () => {
         max,
         start,
         error,
-    } = useSelector(initState)
-
+    } = useSelector(initStateSecond)
+    console.log(store.getState())
     const onMaxInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         let value = parseInt(e.currentTarget.value)
         dispatch(setMax(value))
         if (value < 0 || value <= start) dispatch(setErrorState(true, 'incorrect values'))
         else dispatch(setErrorState(false, 'enter values and press "set"'))
     }
-
     const onStartInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         let value = parseInt(e.currentTarget.value)
         dispatch(setStart(value))

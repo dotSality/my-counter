@@ -2,9 +2,9 @@ import s from '../First.module.css'
 import {FirstButtons} from '../FirstButtons/FirstButtons';
 import React from 'react';
 import {restoreState} from '../../../LocalStorageFunctions/storage';
-import {ValuesType} from '../../../redux/store-reducer';
+import {ValuesType} from '../../../redux/first-reducer';
 import {useSelector} from 'react-redux';
-import {initState} from '../../../redux/selectors';
+import {initStateFirst} from '../../../redux/selectors';
 
 export const FirstCount = () => {
 
@@ -14,9 +14,9 @@ export const FirstCount = () => {
         count,
         countMessage,
         error,
-    } = useSelector(initState)
+    } = useSelector(initStateFirst)
 
-    const output = restoreState<ValuesType>('values', values) ? (error ? countMessage : count) : countMessage
+    const output = restoreState<ValuesType>('first-values', values) ? (error ? countMessage : count) : countMessage
     const errorClassName = error ? s.error : count === max ? s.error : ''
 
     return (

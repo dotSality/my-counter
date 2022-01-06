@@ -1,9 +1,11 @@
 import {combineReducers, createStore} from 'redux';
-import {stateReducer} from './store-reducer';
+import {firstReducer} from './first-reducer';
+import {secondReducer} from './second-reducer';
 
 
 const reducers = combineReducers({
-    state: stateReducer
+    first: firstReducer,
+    second: secondReducer,
 })
 
 export type GlobalState = ReturnType<typeof reducers>

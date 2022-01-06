@@ -1,7 +1,7 @@
 import {useSelector} from 'react-redux';
-import {initState} from '../../../redux/selectors';
+import {initStateSecond} from '../../../redux/selectors';
 import {restoreState} from '../../../LocalStorageFunctions/storage';
-import {ValuesType} from '../../../redux/store-reducer';
+import {ValuesType} from '../../../redux/second-reducer';
 import s from './../Second.module.css';
 import React from 'react';
 
@@ -13,7 +13,7 @@ export const SecondCount = () => {
         count,
         countMessage,
         error,
-    } = useSelector(initState)
+    } = useSelector(initStateSecond)
 
     const output = restoreState<ValuesType>('second-values', values) ? (error ? countMessage : count) : countMessage
     const errorClassName = error ? s.error : count === max ? s.error : ''
