@@ -31,12 +31,12 @@ export const SecondButtons = (props: ButtonContainerPropsType) => {
     return (
         <div className={s.buttonContainer}>
             <button
-                disabled={count === values.max ? true : error}
+                disabled={count === values.max ? true : error ? true : props.settings}
                 className={s.button}
                 onClick={setCurrentCount}>Count
             </button>
             <button
-                disabled={count === values.start ? true : error}
+                disabled={count === values.start ? true : error ? true : props.settings}
                 className={s.button}
                 onClick={resetCurrentCount}>Reset
             </button>
